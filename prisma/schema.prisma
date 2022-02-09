@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./data.db"
+}
+
+model authors {
+  id               Int             @id @unique(map: "sqlite_autoindex_authors_1") @default(autoincrement())
+  name             String?
+  email            String?
+  specilization_id Int
+  specializations  specializations @relation(fields: [specilization_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model books {
+  id              Int              @id @unique(map: "sqlite_autoindex_books_1") @default(autoincrement())
+  name            String?
+  Specialization  String?
+  owner_id        Int
+  price           Int?
+  author_id       Int?
+  publisher       String?
+  created_at      String?
+  specializations specializations? @relation(fields: [author_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orders          orders[]
+}
+
+model orders {
+  id       Int    @id @unique(map: "sqlite_autoindex_orders_1") @default(autoincrement())
+  user_id  Int?
+  book_id  Int?
+  quanitty Int?
+  books    books? @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users    users? @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model rules {
+  id    Int     @id @unique(map: "sqlite_autoindex_rules_1") @default(autoincrement())
+  name  String? @default("client")
+  users users[]
+}
+
+model specializations {
+  id      Int       @id @unique(map: "sqlite_autoindex_specializations_1") @default(autoincrement())
+  name    Int       @unique(map: "sqlite_autoindex_specializations_2")
+  authors authors[]
+  books   books[]
+}
+
+model users {
+  id       Int      @id @unique(map: "sqlite_autoindex_users_1") @default(autoincrement())
+  name     String?
+  email    String?  @unique(map: "sqlite_autoindex_users_2")
+  password String?
+  rule     Int?
+  rules    rules?   @relation(fields: [rule], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orders   orders[]
+}
