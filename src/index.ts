@@ -3,7 +3,6 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import bodyParser from "body-parser";
-require("dotenv").config();
 import { PrismaClient } from "@prisma/client";
 
 import indexRouter from "./routes/indexRouter";

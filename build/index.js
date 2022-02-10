@@ -18,7 +18,7 @@ const path_1 = __importDefault(require("path"));
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
-require("dotenv").config();
+// require("dotenv").config();
 const client_1 = require("@prisma/client");
 const indexRouter_1 = __importDefault(require("./routes/indexRouter"));
 const authRouter_1 = __importDefault(require("./routes/authRouter"));
@@ -54,4 +54,4 @@ main();
 app.listen(port, () => {
     return console.log(`Express is listening at http://localhost:${port}`);
 });
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=index.js.map
