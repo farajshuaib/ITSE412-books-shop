@@ -2,9 +2,43 @@
 
     <%- include('components/navbar'); -%>
 
-        <header class="container mx-auto">
-            <h1>hello world</h1>
+
+        <style>
+            .swiper {
+                height: 500px;
+            }
+        </style>
+
+        <header class="">
+            <!-- Slider main container -->
+            <div class="swiper">
+                <!-- Additional required wrapper -->
+                <div class="swiper-wrapper">
+                    <!-- Slides -->
+                    <div class="swiper-slide relative "><span class="absolute inset-0 bg-black opacity-25 z-20"></span><img class="object-cover h-full w-full" src="/assets/slider1.jpeg" alt="" loading="lazy" /></div>
+                    <div class="swiper-slide relative "><span class="absolute inset-0 bg-black opacity-25 z-20"></span><img class="object-cover h-full w-full" src="/assets/slider2.jpeg" alt="" loading="lazy" /></div>
+                    <div class="swiper-slide relative "><span class="absolute inset-0 bg-black opacity-25 z-20"></span><img class="object-cover h-full w-full" src="/assets/slider3.jpeg" alt="" loading="lazy" /></div>
+                </div>
+                <!-- If we need pagination -->
+                <div class="swiper-pagination"></div>
+
+            </div>
         </header>
 
 
         <%- include('components/footer'); -%>
+
+
+            <script>
+                const swiper = new Swiper('.swiper', {
+                    // Optional parameters
+                    loop: true,
+
+                    // If we need pagination
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+
+
+                });
+            </script>

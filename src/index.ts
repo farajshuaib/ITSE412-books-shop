@@ -1,11 +1,14 @@
 import express from "express";
-import  path  from 'path';
+import path from "path";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
 import { requireAuth, checkUser } from "./middlewares/auth";
 
 import indexRouter from "./routes/indexRouter";
 import authRouter from "./routes/authRouter";
+
+
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,8 +22,7 @@ app.use(cookieParser());
 
 // view engine
 app.set("view engine", "ejs");
-app.set('views', path.join(__dirname, '/views'));
-
+app.set("views", path.join(__dirname, "/views"));
 
 // setyp db connection
 async function main() {
