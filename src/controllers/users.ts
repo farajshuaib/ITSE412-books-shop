@@ -7,7 +7,7 @@ import { User } from "../models/users";
 
 import { prisma } from "../index";
 
-const SECRET = "asbadbbdbbh7788888887hb113h3hbb";
+import { SECRET } from "../constant";
 
 var JwtStrategy = require("passport-jwt").Strategy,
   ExtractJwt = require("passport-jwt").ExtractJwt;

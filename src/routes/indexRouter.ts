@@ -1,11 +1,6 @@
 import express from "express";
 const router = express.Router();
 
-/* GET login page. */
-router.get('/login', function(req:any, res:any, next:any) {
-  res.send("hello world");
-});
+router.get("/", (req: any, res: any, next: any) => res.render("home"));
 
-
-export default router
-
+export default router;

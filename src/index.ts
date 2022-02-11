@@ -1,9 +1,8 @@
 import express from "express";
-import path from "path";
+import  path  from 'path';
 import cookieParser from "cookie-parser";
-import cors from "cors";
-import bodyParser from "body-parser";
 import { PrismaClient } from "@prisma/client";
+import { requireAuth, checkUser } from "./middlewares/auth";
 
 import indexRouter from "./routes/indexRouter";
 import authRouter from "./routes/authRouter";
@@ -13,23 +12,24 @@ const port = process.env.PORT || 3000;
 
 export const prisma = new PrismaClient();
 
-app.set("view engine", "ejs");
+// middleware
+app.use(express.static("public"));
 app.use(express.json());
-app.use(cors({ origin: "*" }));
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Header", "Content-Type, Authorization");
-  next();
-});
+// view engine
+app.set("view engine", "ejs");
+app.set('views', path.join(__dirname, '/views'));
 
+
+// setyp db connection
 async function main() {
-  app.use("/", indexRouter);
-  app.use("/auth", authRouter);
+  // routes
+  app.get("*", checkUser);
+  // app.get("/", (req, res) => res.render("home"));
+  // app.get("/home", requireAuth, (req, res) => res.render("home"));
+  app.use(indexRouter);
+  app.use(authRouter);
 }
 main()
   .catch((e) => {

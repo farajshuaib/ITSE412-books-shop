@@ -43,6 +43,7 @@
         "express": "^4.17.2",
         "express-validator": "^6.14.0",
         "jsonwebtoken": "^8.5.1",
-        "lodash": "^4.17.21"
+        "lodash": "^4.17.21",
+        "validator": "^13.1.1"
     }
 }
