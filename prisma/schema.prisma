@@ -31,7 +31,7 @@ model orders {
 
 model rules {
   id    Int     @id @unique(map: "sqlite_autoindex_rules_1") @default(autoincrement())
-  name  String? @default("client")
+  name  String  @default("Customer")
   users users[]
 }
 

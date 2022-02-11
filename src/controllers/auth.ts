@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { prisma } from "..";
 import { SECRET } from "../constant";
 import bcrypt from "bcrypt";
+import { User } from "../models/users";
 
 // handle errors
 const handleErrors = (err: any) => {
@@ -46,22 +47,22 @@ const createToken = (id: any) => {
   });
 };
 
-
 export const signup_post = async (
   req: express.Request,
   res: express.Response
 ) => {
   const { name, email, password } = req.body;
 
-  req.body.password = await bcrypt.hash(req.body.password, 12);
+  let hashed_password = await bcrypt.hash(req.body.password, 12);
   try {
     const user = await prisma.users.create({
-      data: { name: name, email: email, password: password },
+      data: { id: 1, name: name, email: email, password: hashed_password, rule: 1 },
     });
     const token = createToken(user.id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
     res.status(201).json({ user: user });
   } catch (err) {
+    console.log(err);
     const errors = handleErrors(err);
     res.status(400).json({ errors });
   }
@@ -71,6 +72,7 @@ export const login_post = async (
   req: express.Request,
   res: express.Response
 ) => {
+  console.log(req);
   const { email, password } = req.body;
 
   try {
@@ -86,12 +88,15 @@ export const login_post = async (
       } else {
         res.status(400).json({
           status: "faild",
-          message: "Incorrect password !",
+          message: "كلمة المرور خاطئة",
           token: null,
         });
       }
     } else {
-      res.status(404).json({ status: 404, data: { error: "user not found" } });
+      res.status(404).json({
+        status: 404,
+        data: { error: "المستخدم غير مسجل بعد، الرجاء تسجيل حساب جديد" },
+      });
     }
   } catch (err) {
     const errors = handleErrors(err);

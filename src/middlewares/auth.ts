@@ -2,6 +2,8 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import { prisma } from "../index";
 
+import { SECRET } from "../constant";
+
 const requireAuth = (
   req: express.Request,
   res: express.Response,
@@ -11,7 +13,7 @@ const requireAuth = (
 
   // check json web token exists & is verified
   if (token) {
-    jwt.verify(token, "net ninja secret", (err: any, decodedToken: any) => {
+    jwt.verify(token, SECRET, (err: any, decodedToken: any) => {
       if (err) {
         console.log(err.message);
         res.redirect("/login");
@@ -33,14 +35,21 @@ const checkUser = (
 ) => {
   const token = req.cookies.jwt;
   if (token) {
-    jwt.verify(token, "app secret", async (err: any, decodedToken: any) => {
+    jwt.verify(token, SECRET, async (err: any, decodedToken: any) => {
       if (err) {
         res.locals.user = null;
         next();
       } else {
-        let user = await prisma.users.findUnique(decodedToken.id);
-        res.locals.user = user;
-        next();
+        try {
+          const user = await prisma.users.findUnique({
+            where: { id: decodedToken.id },
+          });
+          res.locals.user = user;
+          next();
+        } catch (err) {
+          console.log("checkUser erro", err);
+          next();
+        }
       }
     });
   } else {
