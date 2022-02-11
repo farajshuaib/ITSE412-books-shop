@@ -56,7 +56,13 @@ export const signup_post = async (
   let hashed_password = await bcrypt.hash(req.body.password, 12);
   try {
     const user = await prisma.users.create({
-      data: { id: 1, name: name, email: email, password: hashed_password, rule: 1 },
+      data: {
+        id: 1,
+        name: name,
+        email: email,
+        password: hashed_password,
+        rule: 1,
+      },
     });
     const token = createToken(user.id);
     res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
@@ -88,14 +94,13 @@ export const login_post = async (
       } else {
         res.status(400).json({
           status: "faild",
-          message: "كلمة المرور خاطئة",
-          token: null,
+          error: "كلمة المرور خاطئة",
         });
       }
     } else {
       res.status(404).json({
-        status: 404,
-        data: { error: "المستخدم غير مسجل بعد، الرجاء تسجيل حساب جديد" },
+        status: "faild",
+        error: "المستخدم غير مسجل بعد، الرجاء تسجيل حساب جديد",
       });
     }
   } catch (err) {
