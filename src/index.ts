@@ -2,13 +2,10 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import { PrismaClient } from "@prisma/client";
-import { requireAuth, checkUser } from "./middlewares/auth";
+import { checkUser } from "./middlewares/auth";
 
 import indexRouter from "./routes/indexRouter";
 import authRouter from "./routes/authRouter";
-
-
-
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -28,8 +25,6 @@ app.set("views", path.join(__dirname, "/views"));
 async function main() {
   // routes
   app.get("*", checkUser);
-  // app.get("/", (req, res) => res.render("home"));
-  // app.get("/home", requireAuth, (req, res) => res.render("home"));
   app.use(indexRouter);
   app.use(authRouter);
 }

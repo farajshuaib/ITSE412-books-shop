@@ -8,15 +8,17 @@ datasource db {
 }
 
 model books {
-  id             Int      @id @unique(map: "sqlite_autoindex_books_1") @default(autoincrement())
-  name           String
-  Specialization String
-  price          Int
-  author         String
-  publisher      String
-  created_at     String
-  publish_at     String
-  orders         orders[]
+  id                Int             @id @unique(map: "sqlite_autoindex_books_1") @default(autoincrement())
+  name              String
+  Specialization_id Int
+  price             Int
+  author            String
+  publisher         String
+  created_at        String
+  publish_at        String
+  image             String
+  specializations   specializations @relation(fields: [Specialization_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orders            orders[]
 }
 
 model orders {
@@ -33,6 +35,12 @@ model rules {
   id    Int     @id @unique(map: "sqlite_autoindex_rules_1") @default(autoincrement())
   name  String  @default("Customer")
   users users[]
+}
+
+model specializations {
+  id    Int     @id @unique(map: "sqlite_autoindex_specializations_1") @default(autoincrement())
+  name  String?
+  books books[]
 }
 
 model users {
