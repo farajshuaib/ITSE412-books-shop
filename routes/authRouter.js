@@ -1,10 +1,10 @@
 import express from "express";
 
 import {
-  signup_post,
-  login_post,
-  logout_get,
-} from "../controllers/auth";
+    signup_post,
+    login_post,
+    logout_get,
+} from "../controllers/auth.js";
 
 const router = express.Router();
 

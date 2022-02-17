@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "es6",
+    "rootDir": ".",
+    "allowJs": true,
+    "strict": true /* Enable all strict type-checking options. */,
+    "noImplicitAny": true,
+    "resolveJsonModule": true
+  },
+  "exclude": ["node_modules", "**/node_modules", "dist"],
+  "include": ["./**/*.js"]
+}

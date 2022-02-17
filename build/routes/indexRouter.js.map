@@ -1,1 +1,0 @@
-{"version":3,"file":"indexRouter.js","sourceRoot":"","sources":["../../src/routes/indexRouter.ts"],"names":[],"mappings":";;;;;AAAA,sDAA8B;AAC9B,MAAM,MAAM,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAEhC,MAAM,CAAC,GAAG,CAAC,GAAG,EAAE,UAAS,GAAO,EAAE,GAAO,EAAE,IAAQ;IACjD,GAAG,CAAC,MAAM,CAAC,MAAM,CAAC,CAAA;AACpB,CAAC,CAAC,CAAC;AAGH,kBAAe,MAAM,CAAA"}
