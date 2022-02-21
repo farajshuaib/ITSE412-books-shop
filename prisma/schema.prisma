@@ -17,6 +17,7 @@ model books {
   created_at        String
   publish_at        String
   image             String
+  description       String
   specializations   specializations @relation(fields: [Specialization_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   orders            orders[]
 }

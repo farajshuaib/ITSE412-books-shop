@@ -6,6 +6,7 @@ import { checkUser } from "./middlewares/auth.js";
 
 import indexRouter from "./routes/indexRouter.js";
 import authRouter from "./routes/authRouter.js";
+import booksRoutes from "./routes/booksRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -14,6 +15,7 @@ export const prisma = new PrismaClient();
 
 // middleware
 app.use(express.static("public"));
+app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -27,6 +29,7 @@ async function main() {
     app.get("*", checkUser);
     app.use(indexRouter);
     app.use(authRouter);
+    app.use(booksRoutes);
 }
 main()
     .catch((e) => {

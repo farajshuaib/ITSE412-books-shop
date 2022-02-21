@@ -7,21 +7,39 @@
             </a>
         </h1>
         <ul class="flex items-center">
-            <% if (user) {  %>
-                <li>
-                    <a href="/profile">
-                        <%= user.name %>
-                    </a>
-                </li>
-                <li><a href="/logout">تسجيل الخروج</a></li>
-                <% } else { %>
-                    <li>
-                        <a href="/login" class="flex items-center text-gray-900 text-lg font-medium">
+            <div class="relative">
+                <button id="ListButton" class="h-8 w-8 rounded-full flex items-center justify-center border border-gray200">
+                    <i class="bx bx-user text-gray600"></i>
+                </button>
+                <ul id="dropDownList" class="bg-white hidden absolute w-64 rounded-md left-0 top-1/2 mt-2 shadow-xl border border-gray-200 z-50">
+                    <li class="cursor-pointer font-medium text-gray800 px-2 py-3 justify-start border-b border-gray-200 hover:bg-gray-100 select-none">
+                        <a class=" w-full flex items-center" href="<%= user ?  '/profile' : '/login' %>">
+                            <i class="bx bx-user mx-2"></i>
                             <span>حسابي</span>
-                            <i class='bx bx-user text-2xl'></i>
                         </a>
                     </li>
-                    <% } %>
+                    <% if (user) { %>
+                        <li class=" cursor-pointer font-medium text-gray800 flex px-2 py-3 items-center justify-between hover:bg-gray-100 select-none ">
+                            <a href="/logout" class=" flex items-center  w-full">
+                                <i class=" bx bx-log-in mx-2 "></i>
+                                <span>تسجيل الخروج</span>
+                            </a>
+                        </li>
+                        <%}%>
+                </ul>
+
+            </div>
+
+
         </ul>
     </div>
 </nav>
+
+<script>
+    const ListButton = document.querySelector('#ListButton')
+    const dropDownList = document.querySelector('#dropDownList')
+
+    ListButton.addEventListener('click', () => {
+        dropDownList.classList.toggle('hidden')
+    })
+</script>

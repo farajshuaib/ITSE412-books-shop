@@ -5,8 +5,15 @@ import { getAllSpecifications } from "../controllers/specialization";
 const router = express.Router();
 
 router.get("/", async(req, res) => {
-    const specifications = await getAllSpecifications(req, res);
-    res.render("home", { specifications });
+    res.render("home");
+});
+
+router.get("/profile", async(req, res) => {
+    res.render("profile");
+});
+
+router.get("/add-book", async(req, res) => {
+    res.render("add_book");
 });
 
 export default router;
