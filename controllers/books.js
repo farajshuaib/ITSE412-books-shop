@@ -14,7 +14,8 @@ const getAllBooks = async(req, res) => {
     try {
         const books = await prisma.books.findMany({
             where: {
-                Specialization_id: specialization_id ? parseInt(specialization_id) : undefined,
+                Specialization_id: !!specialization_id ?
+                    parseInt(specialization_id) : undefined,
                 name: {
                     contains: search,
                 },
@@ -26,7 +27,7 @@ const getAllBooks = async(req, res) => {
         console.log("books", books);
         return books;
     } catch (error) {
-        console.log("error prisma", error)
+        console.log("error prisma", error);
         res.status(500).render("error", {
             message: " حدث خطأ ما في الخادم ",
         });
@@ -56,8 +57,11 @@ const CreateBook = async(req, res) => {
                     image: imgsrc,
                 },
             });
-            console.log("created book", book);
-            res.status(201).render("home");
+            if (book) {
+                res.redirect('/');
+            } else {
+                res.status(421).render("error");
+            }
         } catch (error) {
             console.log("error", error);
             res.status(400).json({ erorr });

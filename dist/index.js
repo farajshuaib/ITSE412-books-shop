@@ -37,8 +37,9 @@ app.set("view engine", "ejs");
 app.set("views", _path.default.join(__dirname, "/views")); // setyp db connection
 
 async function main() {
-  // routes
-  app.get("*", _auth.checkUser);
+  //middleware route to auth user and fetch books
+  app.get("*", _auth.checkUser); //  routes
+
   app.use(_indexRouter.default);
   app.use(_authRouter.default);
   app.use(_booksRoutes.default);
