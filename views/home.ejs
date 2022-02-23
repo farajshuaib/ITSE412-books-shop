@@ -37,51 +37,56 @@
                         </button>
                     </div>
                     <!-- books -->
-                    <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+                    <% if(books && books.length> 0) { %>
+                        <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 sm:gap-6 md:gap-8 lg:gap-12">
 
-                        <% books.forEach(book=> { %>
-                            <div class="border border-gray-200 rounded-md overflow-hidden ">
-                                <img src="<%-book.image -%>" alt="<%= book.name %>" loading="lazy" class="h-32 w-44 mx-auto bg-cover bg-center " />
-                                <div class="p-3">
-                                    <h2 class="text-gray-800 text-2xl">
-                                        <%= book.name %>
-                                    </h2>
-                                    <p class="text-gray-600 text-sm my-1">
-                                        <%= book.description %>
-                                    </p>
-                                    <div class="flex items-center justify-between my-1">
-                                        <p class="text-gray-700 text-sm">المؤلف: <span>
-                                                <%= book.author %>
-                                            </span> </p>
-                                        <p class="text-gray-700 text-sm">الناشر: <span>
-                                                <%= book.publisher %>
-                                            </span> </p>
+                            <% books.forEach(book=> { %>
+                                <div class="border border-gray-200 rounded-md overflow-hidden ">
+                                    <img src="<%-book.image -%>" alt="<%= book.name %>" loading="lazy" class="h-32 w-44 mx-auto bg-cover bg-center " />
+                                    <div class="p-3">
+                                        <h2 class="text-gray-800 text-2xl">
+                                            <%= book.name %>
+                                        </h2>
+                                        <p class="text-gray-600 text-sm my-1">
+                                            <%= book.description %>
+                                        </p>
+                                        <div class="flex items-center justify-between my-1">
+                                            <p class="text-gray-700 text-sm">المؤلف: <span>
+                                                    <%= book.author %>
+                                                </span> </p>
+                                            <p class="text-gray-700 text-sm">الناشر: <span>
+                                                    <%= book.publisher %>
+                                                </span> </p>
+                                        </div>
+
+
+                                        <button type="button" class="flex items-center justify-center block w-full py-3 bg-green-600 text-white rounded-md">
+                                            <span>
+                                                <%= book.price %>
+                                            </span>
+                                            <span>/</span>
+                                            <span>شراء</span>
+                                        </button>
                                     </div>
-
-
-                                    <button type="button" class="flex items-center justify-center block w-full py-3 bg-green-600 text-white rounded-md">
-                                        <span>
-                                            <%= book.price %>
-                                        </span>
-                                        <span>/</span>
-                                        <span>شراء</span>
-                                    </button>
                                 </div>
-                            </div>
-                            <% });-%>
-                    </div>
+                                <% });-%>
+                        </div>
+                        <% } else { %>
+                            <h4 class="text-center p-12 text-xl">لا يوجد نتائج</h4>
+
+                            <% } %>
                 </div>
                 <sidebar class="md:col-span-2 bg-white rounded-lg p-5">
                     <h2 class="text-2xl text-gray-900 font-medium border-b border-gray-200">اقسام الكتب</h2>
                     <ul>
                         <li class="my-3 text-xl text-gray-600 font-medium">
-                            <button type="button" class="">
+                            <button data-specification="0" type="button" id="SpecializationButton" class="">
                                 الكل
                             </button>
                         </li>
                         <% specifications.forEach(element=> { %>
                             <li class="my-3 text-xl text-gray-600 font-medium">
-                                <button type="button" class="">
+                                <button data-specification="<%- element.id -%>" type="button" id="SpecializationButton" class="">
                                     <%- element.name -%>
                                 </button>
                             </li>
@@ -108,4 +113,34 @@
 
 
                 });
+
+                const SpecializationButton = document.querySelectorAll("#SpecializationButton");
+                let current_specialization_id = 0
+                let searchVal = ''
+
+
+                SpecializationButton.forEach(item => {
+                    item.addEventListener('click', event => {
+                        //handle click
+                        current_specialization_id = event.target.getAttribute('data-specification')
+                        handleSpecializationFilter()
+                    })
+                })
+
+
+
+
+                async function handleSpecializationFilter() {
+                    location.assign(`/?specialization_id=${current_specialization_id}&search=${searchVal}`);
+                    // try {
+                    //     const res = await fetch(, {
+                    //         method: 'get'
+                    //     });
+                    //     console.log("res", res)
+                    //     const responseData = await res.json();
+                    //     console.log("responseData", responseData)
+                    // } catch (error) {
+                    //     console.log("error", error)
+                    // }
+                }
             </script>

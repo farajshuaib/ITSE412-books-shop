@@ -5,10 +5,28 @@ import path from "path";
 import { prisma } from "../index";
 
 const getAllBooks = async(req, res) => {
+    console.log("req.query", req.query);
+    const specialization_id = req.query.specialization_id;
+    const search = req.query.search;
+
+    console.log("specialization_id", specialization_id);
+    console.log("search", search);
     try {
-        const books = await prisma.books.findMany();
+        const books = await prisma.books.findMany({
+            where: {
+                Specialization_id: specialization_id ? parseInt(specialization_id) : undefined,
+                name: {
+                    contains: search,
+                },
+            },
+            include: {
+                specializations: true,
+            },
+        });
+        console.log("books", books);
         return books;
     } catch (error) {
+        console.log("error prisma", error)
         res.status(500).render("error", {
             message: " حدث خطأ ما في الخادم ",
         });

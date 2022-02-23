@@ -54,6 +54,8 @@ const checkUser = async(req, res, next) => {
         });
     } else {
         res.locals.user = null;
+        res.locals.specifications = specifications || [];
+        res.locals.books = books || [];
         next();
     }
 };

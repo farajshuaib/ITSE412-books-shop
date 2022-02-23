@@ -15,7 +15,7 @@ export const prisma = new PrismaClient();
 
 // middleware
 app.use(express.static("public"));
-app.use('/uploads', express.static('uploads'));
+app.use("/uploads", express.static("uploads"));
 app.use(express.json());
 app.use(cookieParser());
 
@@ -25,8 +25,9 @@ app.set("views", path.join(__dirname, "/views"));
 
 // setyp db connection
 async function main() {
-    // routes
+    //middleware route to auth user and fetch books
     app.get("*", checkUser);
+    //  routes
     app.use(indexRouter);
     app.use(authRouter);
     app.use(booksRoutes);

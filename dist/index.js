@@ -19,6 +19,8 @@ var _indexRouter = _interopRequireDefault(require("./routes/indexRouter.js"));
 
 var _authRouter = _interopRequireDefault(require("./routes/authRouter.js"));
 
+var _booksRoutes = _interopRequireDefault(require("./routes/booksRoutes.js"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 const app = (0, _express.default)();
@@ -27,6 +29,7 @@ const prisma = new _client.PrismaClient(); // middleware
 
 exports.prisma = prisma;
 app.use(_express.default.static("public"));
+app.use("/uploads", _express.default.static("uploads"));
 app.use(_express.default.json());
 app.use((0, _cookieParser.default)()); // view engine
 
@@ -38,6 +41,7 @@ async function main() {
   app.get("*", _auth.checkUser);
   app.use(_indexRouter.default);
   app.use(_authRouter.default);
+  app.use(_booksRoutes.default);
 }
 
 main().catch(e => {
