@@ -9,15 +9,16 @@ const getAllBooks = async(req, res) => {
     const specialization_id = req.query.specialization_id;
     const search = req.query.search;
 
-    console.log("specialization_id", specialization_id);
-    console.log("search", search);
+    console.log("specialization_id", !!specialization_id ?
+        parseInt(specialization_id) : undefined)
+
     try {
         const books = await prisma.books.findMany({
             where: {
-                Specialization_id: !!specialization_id ?
+                Specialization_id: (specialization_id && specialization_id != 0) ?
                     parseInt(specialization_id) : undefined,
                 name: {
-                    contains: search,
+                    contains: search || undefined,
                 },
             },
             include: {

@@ -31,8 +31,8 @@
                 <div class="md:col-span-6 bg-white rounded-lg p-5">
                     <!-- search -->
                     <div class="flex items-center gap-5">
-                        <input type="search" id="search" name="search" class="px-4 py-2 rounded-lg w-1/3 border border-gray-500 bg-gray-100" placeholder="ابحث عن اسم الكتاب ..." />
-                        <button type="button" class="bg-green-600 px-5 py-2 rounded-md text-white">
+                        <input type="search" id="search" value="" name="search" class="px-4 py-2 rounded-lg w-1/3 border border-gray-500 bg-gray-100" placeholder="ابحث عن اسم الكتاب ..." />
+                        <button id="SearchButton" type="button" class="bg-green-600 px-5 py-2 rounded-md text-white">
                             بحث
                         </button>
                     </div>
@@ -128,8 +128,21 @@
                 });
 
                 const SpecializationButton = document.querySelectorAll("#SpecializationButton");
+                const SearchButton = document.querySelector("#SearchButton");
+                const search = document.getElementById('search')
+
                 let current_specialization_id = 0
-                let searchVal = ''
+                let searchVal = ""
+
+                console.log("searchVal", searchVal)
+
+
+                search.addEventListener('change', function(e) {
+                    searchVal = e.target.value
+                })
+
+
+                SearchButton.addEventListener('click', handleSpecializationFilter)
 
 
                 SpecializationButton.forEach(item => {
@@ -141,19 +154,8 @@
                 })
 
 
-
-
-                async function handleSpecializationFilter() {
+                function handleSpecializationFilter() {
                     location.assign(`/?specialization_id=${current_specialization_id}&search=${searchVal}`);
-                    // try {
-                    //     const res = await fetch(, {
-                    //         method: 'get'
-                    //     });
-                    //     console.log("res", res)
-                    //     const responseData = await res.json();
-                    //     console.log("responseData", responseData)
-                    // } catch (error) {
-                    //     console.log("error", error)
-                    // }
+
                 }
             </script>

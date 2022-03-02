@@ -47,7 +47,7 @@ export const login_post = async(req, res) => {
             },
         });
         if (user && user.password) {
-            const valid = await bcrypt.compare(req.body.password, user.password);
+            const valid = await bcrypt.compare(password, user.password);
             if (valid) {
                 const token = createToken(user.id);
                 res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });

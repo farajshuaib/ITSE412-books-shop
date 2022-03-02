@@ -9,4 +9,13 @@ html {
   font-family: "Cairo", sans-serif;
   font-family: "Tajawal", sans-serif;
 }
-/* 
+
+.hide-sidebar {
+  right: -16rem !important;
+}
+
+
+
+
+
+

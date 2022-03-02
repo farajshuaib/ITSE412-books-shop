@@ -1,0 +1,53 @@
+<%- include('components/header'); -%>
+
+    <%- include('components/navbar'); -%>
+
+
+        <div class="container mx-auto my-12 bg-white rounded-lg shadow-lg p-8">
+            <h1 class="mb-8 text-3xl text-gray-700">إضافة كتاب جديد</h1>
+            <form action="/books/store" method="POST" enctype="multipart/form-data">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-8">
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">اسم الكتاب</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="text" name="name" required />
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">وصف الكتاب</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="text" name="description" required />
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">المؤلف</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="text" name="author" required />
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">السعر</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="number" name="price" required />
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">دار النشر</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="text" name="publisher" required />
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">التحصص</label>
+                        <select class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" name="Specialization_id">
+                            <% specifications.forEach(element=> { %>
+                                <option name="<%- element.name -%>" value="<%=element.id%>">
+                                    <%- element.name -%>
+                                </option>
+                                <% });-%>
+
+                        </select>
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">صور الكتاب</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="file" name="image" type="image/*" required />
+                    </div>
+                </div>
+                <div class="responseError text-red-600 rounded-lg my-4 py-2 px-3"></div>
+                <button type="submit" class="bg-green-600 px-5 py-2 rounded-lg text-white">تأكيد</button>
+
+            </form>
+        </div>
+
+
+        <%- include('components/footer'); -%>

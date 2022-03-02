@@ -1,0 +1,40 @@
+<div id="drawer" class="bg-white fixed top-0 right-0 h-screen md:fixed md:mt-20 z-50 w-64 pb-8 transition-all duration-300 overflow-y-scroll ">
+    <div class="flex items-center justify-between p-5  md:hidden ">
+        <img src="/assets/logo.png" alt="logo" class="h-12" />
+        <i id="menu-icon" class="bx bx-menu text-3xl"></i>
+    </div>
+
+    <h3 class="p-5 text-xl text-gray800 font-medium">
+        <%- user ? user.name : '' %>
+    </h3>
+
+    <ul>
+        <li class="w-full select-none">
+            <a href="/dashboard" class="text-gray-800 w-full flex items-center px-4 py-3 text-lg">
+                <span class="mx-2">الرئيسية</span>
+            </a>
+        </li>
+        <li class="w-full select-none">
+            <a href="/dashboard" class="text-gray-800 w-full flex items-center px-4 py-3 text-lg">
+                <span class="mx-2">مشترياتي</span>
+            </a>
+        </li>
+        <li class="w-full select-none">
+            <a href="/books" class="text-gray-800 w-full flex items-center px-4 py-3 text-lg">
+                <span class="mx-2">الكتب</span>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<script type="text/javascript">
+    const drawer = document.querySelector('#drawer')
+    const menuIcon = document.querySelector('#menu-icon')
+
+    function toggleSideBar() {
+        drawer.classList.toggle('hide-sidebar')
+    }
+
+    menuIcon.addEventListener('click', toggleSideBar)
+</script>

@@ -1,34 +1,60 @@
 <nav class="navbar shadow-md bg-white">
     <div class="container flex items-center justify-between px-5 md:px-8 mx-auto">
-        <h1>
+        <h1 class="flex items-center">
             <a href="/" class="flex items-center">
                 <img src="/assets/logo.png" alt="" loading="lazy" />
                 <span class="text-3xl font-bold text-gray-700">مكتبة دار الارقم</span>
             </a>
         </h1>
         <ul class="flex items-center">
+
             <div class="relative">
                 <button id="ListButton" class="h-8 w-8 rounded-full flex items-center justify-center border border-gray200">
                     <i class="bx bx-user text-gray600"></i>
                 </button>
-                <ul id="dropDownList" class="bg-white hidden absolute w-64 rounded-md left-0 top-1/2 mt-2 shadow-xl border border-gray-200 z-50">
-                    <li class="cursor-pointer font-medium text-gray800 px-2 py-3 justify-start border-b border-gray-200 hover:bg-gray-100 select-none">
-                        <a class=" w-full flex items-center" href="<%= user ?  '/profile' : '/login' %>">
-                            <i class="bx bx-user mx-2"></i>
-                            <span>حسابي</span>
-                        </a>
-                    </li>
-                    <% if (user) { %>
-                        <li class=" cursor-pointer font-medium text-gray800 flex px-2 py-3 items-center justify-between hover:bg-gray-100 select-none ">
-                            <a href="/logout" class=" flex items-center  w-full">
-                                <i class=" bx bx-log-in mx-2 "></i>
-                                <span>تسجيل الخروج</span>
-                            </a>
-                        </li>
-                        <%}%>
-                </ul>
 
+                <ul id="dropDownList" class="bg-white hidden absolute w-64 rounded-md left-0 top-1/2 mt-2 shadow-xl border border-gray-200 z-50">
+                    <% if(user) { %>
+                        <% if(user.role==3) { %>
+                            <li class=" cursor-pointer font-medium text-gray800 flex px-2 py-3 items-center justify-between hover:bg-gray-100 select-none ">
+                                <a href="/logout" class=" flex items-center  w-full">
+                                    <i class=" bx bx-log-in mx-2 "></i>
+                                    <span>تسجيل الخروج</span>
+                                </a>
+                            </li>
+                            <% } else { %>
+                                <li class=" cursor-pointer font-medium text-gray800 flex px-2 py-3 items-center justify-between hover:bg-gray-100 select-none ">
+                                    <a href="/add-book" class=" flex items-center  w-full">
+                                        <i class='bx bx-book-open mx-2'></i>
+                                        <span>اضافة كتاب</span>
+                                    </a>
+                                </li>
+                                <li class=" cursor-pointer font-medium text-gray800 flex px-2 py-3 items-center justify-between hover:bg-gray-100 select-none ">
+                                    <a href="/add-specification" class=" flex items-center  w-full">
+                                        <i class='bx bxs-comment-detail mx-2'></i>
+                                        <span>اضافة تخصص جديد</span>
+                                    </a>
+                                </li>
+                                <li class=" cursor-pointer font-medium text-gray800 flex px-2 py-3 items-center justify-between hover:bg-gray-100 select-none ">
+                                    <a href="/logout" class=" flex items-center  w-full">
+                                        <i class=" bx bx-log-in mx-2 "></i>
+                                        <span>تسجيل الخروج</span>
+                                    </a>
+                                </li>
+                                <% } %>
+                                    <% } else { %>
+                                        <li class=" cursor-pointer font-medium text-gray800 flex px-2 py-3 items-center justify-between hover:bg-gray-100 select-none ">
+                                            <a href="/login" class=" flex items-center  w-full">
+                                                <i class=" bx bx-log-in mx-2 "></i>
+                                                <span>تسجيل الدخول</span>
+                                            </a>
+                                        </li>
+                                        <% } %>
+                </ul>
             </div>
+
+
+
 
 
         </ul>

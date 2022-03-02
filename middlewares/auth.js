@@ -41,6 +41,7 @@ const checkUser = async(req, res, next) => {
                 try {
                     const user = await prisma.users.findUnique({
                         where: { id: decodedToken.id },
+                        include: { rules: true },
                     });
                     res.locals.user = user;
                     res.locals.specifications = specifications || [];
