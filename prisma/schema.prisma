@@ -46,11 +46,12 @@ model specializations {
 }
 
 model users {
-  id       Int      @id @unique(map: "sqlite_autoindex_users_1") @default(autoincrement())
-  name     String
-  email    String   @unique(map: "sqlite_autoindex_users_2")
-  password String
-  rule     Int
-  rules    rules    @relation(fields: [rule], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  orders   orders[]
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String
+  password   String
+  rule       Int
+  created_at String?
+  rules      rules    @relation(fields: [rule], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  orders     orders[]
 }

@@ -1,26 +1,65 @@
-import express from "express";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import _ from "lodash";
-
 import { prisma } from "../index";
-
-import { SECRET } from "../constant";
-
-var JwtStrategy = require("passport-jwt").Strategy,
-    ExtractJwt = require("passport-jwt").ExtractJwt;
-
-var opts = {};
-opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
-opts.secretOrKey = "secret";
-opts.issuer = SECRET;
-opts.audience = "localhost";
+import bcrypt from "bcrypt";
 
 const allUser = async(req, res) => {
-    const allUsers = await prisma.users.findMany();
+    try {
+        const users = await prisma.users.findMany({
+            where: {
+                NOT: {
+                    id: 1,
+                },
+            },
+            include: {
+                rules: true,
+            },
+        });
+        return users;
+    } catch (err) {
+        res.status(500).render("error", {
+            message: " حدث خطأ ما في الخادم ",
+        });
+    }
+};
+
+const getUserById = async(user_id) => {
+    try {
+        const users = await prisma.users.findUnique({
+            where: {
+                id: +user_id,
+            },
+            include: {
+                rules: true,
+            },
+        });
+        return users;
+    } catch (err) {
+        res.status(500).render("error", {
+            message: " حدث خطأ ما في الخادم ",
+        });
+    }
+};
+
+const CreateUser = async(req, res) => {
+    const { name, email, password, rule } = req.body;
+
+    let hashed_password = await bcrypt.hash(password, 12);
+    try {
+        await prisma.users.create({
+            data: {
+                name: name,
+                email: email,
+                password: hashed_password,
+                rule: +rule,
+            },
+        });
+        res.redirect("/success");
+    } catch (err) {
+        res.status(400).json({ erorr: err });
+    }
 };
 
 const deleteUser = async(req, res) => {
+    console.log("req.params.id", req.params.id)
     const user = await prisma.users.findUnique({
         where: { id: +req.params.id },
     });
@@ -34,11 +73,49 @@ const deleteUser = async(req, res) => {
 
     try {
         await prisma.users.delete({ where: { id: +req.params.id } });
+        res.redirect("/success");
     } catch (err) {
-        res.status(500).render("error", {
-            message: " حدث خطأ ما في الخادم ",
-        });
+        res.redirect("/error");
     }
 };
 
-export { deleteUser, allUser };
+const UpdateUser = async(req, res) => {
+    try {
+        const { name, email, password, rule } = req.body;
+
+        let hashed_password;
+
+        let currentUser = await prisma.users.findUnique({
+            where: {
+                id: +req.params.id,
+            },
+        });
+
+        if (password) {
+            hashed_password = await bcrypt.hash(password, 12);
+        } else {
+            hashed_password = currentUser.password;
+        }
+
+        const user = await prisma.users.update({
+            where: {
+                id: +req.params.id,
+            },
+            data: {
+                name: name,
+                email: email,
+                password: hashed_password,
+                rule: +rule,
+            },
+        });
+        if (user) {
+            res.redirect("/success");
+        } else {
+            res.status(421).render("error");
+        }
+    } catch (error) {
+        res.redirect("/error");
+    }
+};
+
+export { deleteUser, allUser, CreateUser, UpdateUser, getUserById };

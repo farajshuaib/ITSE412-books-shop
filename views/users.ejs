@@ -1,0 +1,64 @@
+<%- include('components/header'); -%>
+
+    <%- include('components/navbar'); -%>
+
+        <main class="container mx-auto p-5 ">
+            <div class="flex items-center justify-end my-5">
+                <a href="/add-user" class="bg-green-600 px-5 py-2 rounded-lg text-white  flex items-center justify-center">
+                    <span>اضافة مستخدم جديد</span>
+                    <i class='bx bx-user-plus text-2xl'></i>
+                </a>
+            </div>
+            <div class="bg-white p-8 w-full rounded-lg">
+                <h1 class="text-3xl text-gray-800">المستخدمين</h1>
+                <div class="w-full relative  sm:rounded-lg overflow-auto">
+                    <table class="w-full bg-white rounded-md text-center ">
+                        <thead>
+                            <tr class="border-b border-gray-200 p-4">
+                                <% ['اسم المستخدم', 'البيريد الالكتروني' , "الصفة" , "تاريخ التسجيل" , "خيارات"
+                                    ].forEach((item)=>
+                                    { %>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-800">
+                                        <%- item -%>
+                                    </td>
+                                    <% }) %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% users.forEach((item)=> { %>
+                                <tr class="border-b border-gray-200 even:bg-gray-100">
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.name -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.email -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.rules.name -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.created_at -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <div class=" flex items-center justify-center gap-5 ">
+                                            <form method="GET" action="/edit-user/<%=item.id %>">
+                                                <button type="submit">
+                                                    <i class='bx bxs-edit text-green-600 text-xl'></i>
+                                                </button>
+                                            </form>
+                                            <form method="GET" action="/delete-user/<%=item.id %>">
+                                                <button type="submit">
+                                                    <i class='bx bx-trash text-red-600 text-xl'></i>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <%- include('components/footer'); -%>

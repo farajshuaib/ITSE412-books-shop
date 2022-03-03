@@ -42,10 +42,6 @@ const CreateOrder = async(req, res) => {
     try {
         const { quantity } = req.body;
 
-        console.log(" \n\n\n\n\n ");
-        console.log(" req.body", req.body);
-        console.log(" \n\n\n\n\n ");
-
         let currentBook = await prisma.books.findUnique({
             where: {
                 id: +req.params.book_id,

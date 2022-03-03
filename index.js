@@ -8,6 +8,7 @@ import indexRouter from "./routes/indexRouter.js";
 import authRouter from "./routes/authRouter.js";
 import booksRoutes from "./routes/booksRoutes.js";
 import ordersRoutes from "./routes/ordersRoutes.js";
+import usersRouter from "./routes/usersRouter.js";
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -33,6 +34,7 @@ async function main() {
     app.use(authRouter);
     app.use(booksRoutes);
     app.use(ordersRoutes)
+    app.use(usersRouter)
 }
 main()
     .catch((e) => {

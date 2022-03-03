@@ -1,0 +1,43 @@
+<%- include('components/header'); -%>
+
+    <%- include('components/navbar'); -%>
+
+
+        <div class="container mx-auto my-12 bg-white rounded-lg shadow-lg p-8">
+            <h1 class="mb-8 text-3xl text-gray-700">إضافة مستخدم جديد</h1>
+            <form action="/users/store" method="POST" enctype="multipart/form-data">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-8">
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">الاسم </label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="text" name="name" required />
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">البريد الالكتروني</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="email" name="email" required />
+                    </div>
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">كلمة المرور</label>
+                        <input class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" type="password" name="password" required />
+                    </div>
+
+                    <div class="my-5">
+                        <label class="block w-full text-medium text-xl text-gray-900">الصفة</label>
+                        <select class="block w-full text-medium border border-gray-300 rounded-lg px-3 py-2" name="rule">
+                            <% [{name:"موضف", id: 2},{name:"زبون", id: 3}].forEach(element=> { %>
+                                <option name="<%- element.name -%>" value="<%=element.id%>">
+                                    <%- element.name -%>
+                                </option>
+                                <% });-%>
+
+                        </select>
+                    </div>
+
+                </div>
+                <div class="responseError text-red-600 rounded-lg my-4 py-2 px-3"></div>
+                <button type="submit" class="bg-green-600 px-5 py-2 rounded-lg text-white">تأكيد</button>
+
+            </form>
+        </div>
+
+
+        <%- include('components/footer'); -%>
