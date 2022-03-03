@@ -1,8 +1,5 @@
 import express from "express";
-import { requireAuth } from "../middlewares/auth";
-import { getAllSpecifications } from "../controllers/specialization";
 
-import { getBookById } from "../controllers/books";
 
 const router = express.Router();
 

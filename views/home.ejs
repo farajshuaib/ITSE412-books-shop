@@ -65,7 +65,7 @@
                                             </p>
                                             <p class="text-gray-700 text-sm">
                                                 <span class="font-bold">
-                                                    الناشر:
+                                               d     الناشر:
                                                 </span>
                                                 <%= book.publisher %>
 
@@ -73,13 +73,15 @@
                                         </div>
 
 
-                                        <button type="button" class="flex items-center justify-center block w-full py-3 bg-green-600 text-white rounded-md">
-                                            <span>
-                                                <%= book.price %>
-                                            </span>
-                                            <span>/</span>
-                                            <span>شراء</span>
-                                        </button>
+                                        <form action="<%= user ? '/book-details/'+ book.id  : '/login'%>" method="get">
+                                            <button type="submit" class="flex items-center justify-center block w-full py-3 bg-green-600 text-white rounded-md ">
+                                                <span>
+                                                    <%= book.price %>
+                                                </span>
+                                                <span>/</span>
+                                                <span>شراء</span>
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                                 <% });-%>

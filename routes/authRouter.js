@@ -8,10 +8,13 @@ import {
 
 const router = express.Router();
 
-/* GET home page. */
+// pages
 router.get("/signup", (req, res) => res.render("signup"));
-router.post("/signup", signup_post);
 router.get("/login", (req, res) => res.render("login"));
+
+
+// controllers
+router.post("/signup", signup_post);
 router.post("/login", login_post);
 router.get("/logout", logout_get);
 

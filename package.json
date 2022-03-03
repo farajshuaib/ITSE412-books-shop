@@ -4,9 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "build": "babel index.js -d dist",
-        "start:dev": "nodemon --exec babel-node index.js",
-        "start": "npm run build && nodemon dist/index.js"
+        "start": "nodemon --exec babel-node index.js"
     },
     "repository": {
         "type": "git",
@@ -25,11 +23,11 @@
         "@babel/node": "^7.16.8",
         "@babel/preset-env": "^7.16.11",
         "nodemon": "^2.0.15",
-        "prisma": "^3.9.1",
+        "prisma": "^3.11.0-integration-fix-empty-path.1",
         "rimraf": "^3.0.2"
     },
     "dependencies": {
-        "@prisma/client": "^3.9.1",
+        "@prisma/client": "^3.10.0",
         "bcrypt": "^5.0.1",
         "cookie-parser": "^1.4.6",
         "cors": "^2.8.5",

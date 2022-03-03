@@ -8,7 +8,7 @@ datasource db {
 }
 
 model books {
-  id                Int             @id @unique(map: "sqlite_autoindex_books_1") @default(autoincrement())
+  id                Int             @id @default(autoincrement())
   name              String
   Specialization_id Int
   price             Int
@@ -17,19 +17,20 @@ model books {
   created_at        String
   publish_at        String
   image             String
-  description       String
+  description       String?
   specializations   specializations @relation(fields: [Specialization_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   orders            orders[]
 }
 
 model orders {
-  id           Int   @id @unique(map: "sqlite_autoindex_orders_1") @default(autoincrement())
+  id           Int    @id @default(autoincrement())
   user_id      Int
   book_id      Int
-  quanitty     Int
   total_amount Int
-  books        books @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users        users @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  created_at   String
+  quantity     Int
+  books        books  @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  users        users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model rules {

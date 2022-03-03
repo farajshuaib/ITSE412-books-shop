@@ -1,0 +1,45 @@
+<%- include('components/header'); -%>
+
+    <%- include('components/navbar'); -%>
+
+        <main class="container mx-auto p-5 ">
+            <div class="bg-white p-8 w-full rounded-lg">
+                <h1 class="text-3xl text-gray-800">طلباتي</h1>
+                <div class="w-full relative  sm:rounded-lg overflow-auto">
+                    <table class="w-full bg-white rounded-md text-center ">
+                        <thead>
+                            <tr class="border-b border-gray-200 p-4">
+                                <% ['اسم الكتاب', 'السعر' , "الكمية" , "الاجمالي" , "التاريخ" ].forEach((item)=> { %>
+                                    <td class="px-6 py-3 whitespace-nowrap text-gray-800">
+                                        <%- item -%>
+                                    </td>
+                                    <% }) %>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% orders.forEach((item)=> { %>
+                                <tr class="border-b border-gray-200 even:bg-gray-100">
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.books.name -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.books.price -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.quantity -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.total_amount -%>
+                                    </td>
+                                    <td class="px-6 py-3 whitespace-nowrap">
+                                        <%- item.created_at -%>
+                                    </td>
+                                </tr>
+                                <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <%- include('components/footer'); -%>

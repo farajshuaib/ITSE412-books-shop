@@ -7,6 +7,7 @@ import { checkUser } from "./middlewares/auth.js";
 import indexRouter from "./routes/indexRouter.js";
 import authRouter from "./routes/authRouter.js";
 import booksRoutes from "./routes/booksRoutes.js";
+import ordersRoutes from "./routes/ordersRoutes.js";
 
 const app = express();
 const port = process.env.PORT || 5050;
@@ -31,6 +32,7 @@ async function main() {
     app.use(indexRouter);
     app.use(authRouter);
     app.use(booksRoutes);
+    app.use(ordersRoutes)
 }
 main()
     .catch((e) => {

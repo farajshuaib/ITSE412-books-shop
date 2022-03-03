@@ -7,22 +7,16 @@ import {
     DeleteBook,
     UpdateBook,
 } from "../controllers/books";
-import multer from "multer";
+
+import upload from '../middlewares/multer'
+
 
 const router = express.Router();
 
-var storage = multer.diskStorage({
-    destination: function(req, file, cb) {
-        cb(null, "./public/uploads");
-    },
-    filename: function(req, file, cb) {
-        cb(null, file.originalname);
-    },
-});
-var upload = multer({ storage: storage });
+
 
 // pages
-router.get("/book/:id", async(req, res) => {
+router.get("/book-details/:id", async(req, res) => {
     const book = await getBookById(req.params.id);
     res.render("book_details", { book });
 });

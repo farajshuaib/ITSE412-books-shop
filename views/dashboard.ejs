@@ -12,7 +12,7 @@
                         بحث
                     </button>
                 </div>
-                <% if(books && books.length > 0) { %>
+                <% if(books && books.length> 0) { %>
                     <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  gap-4 sm:gap-6 md:gap-8 lg:gap-12">
 
                         <% books.forEach(book=> { %>
@@ -48,15 +48,15 @@
                                     </div>
 
 
-                                    <div class="flex items-center justify-between gap-8">
-                                        <form method="GET" action="/edit-book/<%=book.id %>" class=" w-full">
-                                            <button type="submit" class="block w-full py-2 border border-green-600 text-green-600 rounded-md">
-                                                تعديل
+                                    <div class="flex items-center justify-start gap-5 mt-5">
+                                        <form method="GET" action="/edit-book/<%=book.id %>">
+                                            <button type="submit">
+                                                <i class='bx bxs-edit text-green-600 text-2xl'></i>
                                             </button>
                                         </form>
-                                        <form method="GET" action="/delete-book/<%=book.id %>" class=" w-full">
-                                            <button type="submit" class="block w-full py-2 bg-red-600 text-white rounded-md ">
-                                                حذف
+                                        <form method="GET" action="/delete-book/<%=book.id %>">
+                                            <button type="submit">
+                                                <i class='bx bx-trash text-red-600 text-2xl'></i>
                                             </button>
                                         </form>
                                     </div>

@@ -3,7 +3,50 @@
     <%- include('components/navbar'); -%>
 
         <main class="container mx-auto p-5 ">
-            <div class="bg-white p-8 w-full rounded-lg">
+            <div class="bg-white p-8 w-full rounded-lg grid grid-cols-1 md:grid-cols-3 gap-5 md:items-center">
+                <div class="md:col-span-1">
+                    <img src="<%= book.image%>" loading="lazy" alt="" />
+                </div>
+                <div class="md:col-span-2">
+                    <h1 class="text-gray-900 text-3xl font-medium">
+                        <%=book.name %>
+                    </h1>
+                    <p class="text-gray-600 text-lg font-medium">
+                        <%=book.description %>
+                    </p>
+
+                    <div class="my-2">
+                        <p class="text-gray-700">
+                            <span class="font-bold">
+                                المؤلف:
+                            </span>
+                            <%= book.author %>
+                        </p>
+                        <p class="text-gray-700">
+                            <span class="font-bold">
+                                دار النشر:
+                            </span>
+                            <%= book.publisher %>
+                        </p>
+                        <p class="text-gray-700">
+                            <span class="font-bold">
+                                السعر:
+                            </span>
+                            <%= book.price %>
+                        </p>
+                    </div>
+
+                    <form action="/create-order/<%=book.id%>/<%=user.id%>" method="POST" enctype="multipart/form-data">
+                        <div class=" my-2 ">
+                            <label for="quantity" class="block w-full text-xl ">الكمية</label>
+                            <input type="number" min="1" max="10" value="1" id="quantity" name="quantity" class="border border-gray-500 rounded-lg py-2 px-3 w-64 " placeholder="اكتب الكمية المراد شراؤها " />
+                        </div>
+                        <button type="submit" class="flex items-center justify-center px-5 py-3 bg-green-600 text-white rounded-md ">
+                            <span>تأكيد الشراء</span>
+                            <i class='bx bx-cart text-xl mx-1'></i>
+                        </button>
+                    </form>
+                </div>
             </div>
         </main>
 
