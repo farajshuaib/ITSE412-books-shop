@@ -29,7 +29,6 @@ export const signup_post = async(req, res) => {
         res.cookie("jwt", token, { httpOnly: true, maxAge: maxAge * 1000 });
         res.status(201).json({ user: user });
     } catch (err) {
-        console.log(err);
         res.status(400).json({ erorr: err });
     }
 };

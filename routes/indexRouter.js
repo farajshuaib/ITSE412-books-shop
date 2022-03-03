@@ -2,10 +2,11 @@ import express from "express";
 import { requireAuth } from "../middlewares/auth";
 import { getAllSpecifications } from "../controllers/specialization";
 
+import { getBookById } from "../controllers/books";
+
 const router = express.Router();
 
 router.get("/", (req, res) => {
-    console.log("res.locals.user", res.locals.user);
     // if user is an admin or library employee then we'll navigate to the dashboard else will render the home page for the client
     if (!res.locals.user) {
         res.render("home");
@@ -18,8 +19,10 @@ router.get("/", (req, res) => {
     }
 });
 // router.get("/dashboard", async(req, res) => res.render("dashboard"));
-router.get("/add-book", (req, res) => res.render("add_book"));
-router.get("/show-books", (req, res) => res.render("all_books"));
-router.get("/edit-book", (req, res) => res.render("edit_book"));
+
+
+router.get("/success", (req, res) => { res.render("success", { message: "" }) })
+router.get("/error", (req, res) => { res.render("error", { message: "" }) })
+
 
 export default router;

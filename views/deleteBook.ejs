@@ -1,0 +1,24 @@
+<%- include('components/header'); -%>
+
+    <%- include('components/navbar'); -%>
+        <div class="h-screen flex items-center justify-center">
+            <div class="w-1/2 bg-red-100 rounded-lg border border-red-700 text-center p-12">
+                <i class='bx bx-trash-alt text-red-600 text-6xl font-bold my-5'></i>
+                <h1 class="text-red-600 text-4xl font-medium my-3">هل انت متأكد من حذف هذا الكتاب</h6>
+                    <div class="flex items-center justify-center my-8 gap-12">
+                        <form method="GET" action="/" class=" w-full">
+                            <button type="submit" class="block w-full py-2  bg-green-600 text-white rounded-md">
+                                تراجع
+                            </button>
+                        </form>
+                        <form method="POST" action="/book/delete/<%=book_id %>" class=" w-full">
+                            <button type="submit" class="block w-full py-2 bg-red-600 text-white rounded-md ">
+                                تأكيد
+                            </button>
+                        </form>
+                    </div>
+            </div>
+        </div>
+
+
+        <%- include('components/footer'); -%>

@@ -2,7 +2,6 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import _ from "lodash";
-import { validationResult } from "express-validator/check";
 
 import { prisma } from "../index";
 

@@ -16,7 +16,6 @@ const requireAuth = (req, res, next) => {
                 console.log(err.message);
                 res.redirect("/login");
             } else {
-                console.log(decodedToken);
                 next();
             }
         });
@@ -48,7 +47,6 @@ const checkUser = async(req, res, next) => {
                     res.locals.books = books || [];
                     next();
                 } catch (err) {
-                    console.log("checkUser erro", err);
                     next();
                 }
             }
