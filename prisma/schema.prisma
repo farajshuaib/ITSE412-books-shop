@@ -29,8 +29,8 @@ model orders {
   total_amount Int
   created_at   String
   quantity     Int
-  books        books  @relation(fields: [book_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  users        users  @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  books        books  @relation(fields: [book_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  users        users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model rules {

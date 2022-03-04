@@ -1,4 +1,5 @@
 import express from "express";
+import moment from "moment";
 import path from "path";
 
 import { prisma } from "../index";
@@ -10,11 +11,23 @@ const getAllBooks = async(req, res) => {
         const books = await prisma.books.findMany({
             where: {
                 Specialization_id: specialization_id && specialization_id != 0 ?
-                    parseInt(specialization_id) :
-                    undefined,
-                name: {
-                    contains: search || undefined,
-                },
+                    parseInt(specialization_id) : undefined,
+                OR: [{
+                        name: {
+                            contains: search || '',
+                        },
+                    },
+                    {
+                        author: {
+                            contains: search || '',
+                        },
+                    },
+                    {
+                        publisher: {
+                            contains: search || '',
+                        },
+                    },
+                ],
             },
             include: {
                 specializations: true,
@@ -37,6 +50,8 @@ const CreateBook = async(req, res) => {
             req.body;
             let imgsrc = path.join("/uploads/", req.file.filename);
 
+            console.log("imgsrc", imgsrc)
+
             const book = await prisma.books.create({
                 data: {
                     name,
@@ -45,8 +60,8 @@ const CreateBook = async(req, res) => {
                     price: +price,
                     author: author,
                     publisher: publisher,
-                    created_at: new Date().toDateString(),
-                    publish_at: new Date().toDateString(),
+                    created_at: moment().format("YYYY-MM-DD"),
+                    publish_at: moment().format("YYYY-MM-DD"),
                     image: imgsrc,
                 },
             });
@@ -56,6 +71,7 @@ const CreateBook = async(req, res) => {
                 res.status(421).render("error");
             }
         } catch (error) {
+            console.log("error", error)
             res.status(500).render("error", {
                 message: " حدث خطأ ما في الخادم ",
             });
@@ -111,7 +127,6 @@ const UpdateBook = async(req, res) => {
                 price: +price,
                 author: author,
                 publisher: publisher,
-                publish_at: new Date().toDateString(),
                 image: imgsrc,
             },
         });

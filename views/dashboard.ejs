@@ -25,7 +25,10 @@
                                     white-space: nowrap;" class="text-gray-800 text-2xl clip-1">
                                         <%= book.name %>
                                     </h1>
-                                    <p class="text-gray-600 text-sm my-1">
+                                    <p style="
+                                    text-overflow: ellipsis;
+                                    overflow: hidden;
+                                    white-space: nowrap;" class="text-gray-600 text-sm my-1">
                                         <%= book.description %>
                                     </p>
                                     <div class="flex items-center justify-between my-1">

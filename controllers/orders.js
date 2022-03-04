@@ -3,9 +3,42 @@ import path from "path";
 
 import { prisma } from "../index";
 
-const getAllOrders = async(req, res) => {
+import moment from "moment";
+
+const getOrdersLastMonth = async(req, res) => {
+    let total_orders_ammount = 0;
     try {
         const orders = await prisma.orders.findMany({
+            where: {
+                created_at: {
+                    gte: moment().subtract(1, "month").format("YYYY-MM-DD"), // it will retreav the last month date
+                    lt: moment().add(1, "day").format("YYYY-MM-DD"), // tomorrow data
+                },
+            },
+        });
+
+        orders.forEach((order) => {
+            total_orders_ammount += +order.total_amount;
+        });
+
+        return total_orders_ammount
+    } catch (error) {
+        res.status(500).render("error", {
+            message: " حدث خطأ ما في الخادم ",
+        });
+    }
+};
+
+const getAllOrders = async(req, res) => {
+    const date = req.query.date || undefined;
+    try {
+        const orders = await prisma.orders.findMany({
+            where: {
+                created_at: {
+                    gte: moment(date).subtract(1, "month").format("YYYY-MM-DD"), // it will retreav the last month date
+                    lt: moment(date).add(1, "day").format("YYYY-MM-DD"), // tomorrow data
+                },
+            },
             include: {
                 users: true,
                 books: true,
@@ -54,7 +87,7 @@ const CreateOrder = async(req, res) => {
                 book_id: +req.params.book_id,
                 quantity: +quantity,
                 total_amount: +quantity * +currentBook.price,
-                created_at: new Date().toLocaleDateString(),
+                created_at: moment().format("YYYY-MM-DD"),
             },
         });
         if (order) {
@@ -88,4 +121,10 @@ const getOrderById = async(order_id) => {
     }
 };
 
-export { getAllOrders, CreateOrder, getOrderById, getUserOrder };
+export {
+    getAllOrders,
+    CreateOrder,
+    getOrderById,
+    getUserOrder,
+    getOrdersLastMonth,
+};

@@ -4,12 +4,19 @@
 
         <main class="container mx-auto p-5 ">
             <div class="bg-white p-8 w-full rounded-lg">
-                <h1 class="text-3xl text-gray-800">جميع الطلبات</h1>
-                <div class="w-full relative  sm:rounded-lg overflow-auto">
+                <h1 class="text-3xl text-gray-800">جميع المبيعات</h1>
+                <div class="flex items-center justify-end my-8">
+                    <h4 class="text-xl text-gray-800 font-medium">
+                        اجمالي مبيعات الشهر السابق:
+                        <%= orders_ammount_last_month + " دل " %>
+                    </h4>
+                </div>
+                <div class="w-full relative  sm:rounded-lg overflow-auto my-5">
                     <table class="w-full bg-white rounded-md text-center ">
                         <thead>
                             <tr class="border-b border-gray-200 p-4">
-                                <% ['اسم الكتاب', 'السعر' , "الكمية" , "الاجمالي" , "المستخدم", "التاريخ" ].forEach((item)=> { %>
+                                <% ['اسم الكتاب', 'السعر' , "الكمية" , "الاجمالي" , "المستخدم" , "التاريخ"
+                                    ].forEach((item)=> { %>
                                     <td class="px-6 py-3 whitespace-nowrap text-gray-800">
                                         <%- item -%>
                                     </td>
@@ -23,13 +30,13 @@
                                         <%- item.books.name -%>
                                     </td>
                                     <td class="px-6 py-3 whitespace-nowrap">
-                                        <%- item.books.price -%>
+                                        <%- item.books.price + 'دل' -%>
                                     </td>
                                     <td class="px-6 py-3 whitespace-nowrap">
                                         <%- item.quantity -%>
                                     </td>
                                     <td class="px-6 py-3 whitespace-nowrap">
-                                        <%- item.total_amount -%>
+                                        <%- item.total_amount + 'دل' -%>
                                     </td>
                                     <td class="px-6 py-3 whitespace-nowrap">
                                         <%- item.users.name -%>
