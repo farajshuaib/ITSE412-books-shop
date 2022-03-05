@@ -23,7 +23,7 @@ export const signup_post = async(req, res) => {
                 name: name,
                 email: email,
                 password: hashed_password,
-                rule: 1,
+                rule: 3,
             },
         });
         const token = createToken(user.id);

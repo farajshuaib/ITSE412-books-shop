@@ -8,23 +8,24 @@ import {
     UpdateBook,
 } from "../controllers/books";
 
-import upload from '../middlewares/multer'
+import upload from "../middlewares/multer";
 
+import { booksCRUDPermission } from "../middlewares/permissions";
 
 const router = express.Router();
-
-
 
 // pages
 router.get("/book-details/:id", async(req, res) => {
     const book = await getBookById(req.params.id);
     res.render("book_details", { book });
 });
-router.get("/add-book", (req, res) => res.render("add_book")); // add book form
-router.get("/delete-book/:id", (req, res) => {
+router.get("/add-book", booksCRUDPermission, (req, res) =>
+    res.render("add_book")
+); // add book form
+router.get("/delete-book/:id", booksCRUDPermission, (req, res) => {
     res.render("deleteBook", { book_id: req.params.id });
 });
-router.get("/edit-book/:id", async(req, res) => {
+router.get("/edit-book/:id", booksCRUDPermission, async(req, res) => {
     const book = await getBookById(req.params.id);
     res.render("edit_book", { book });
 });
