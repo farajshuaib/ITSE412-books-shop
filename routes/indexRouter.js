@@ -20,6 +20,7 @@ router.get("/", (req, res) => {
 
 router.get("/success", (req, res) => { res.render("success", { message: "" }) })
 router.get("/error", (req, res) => { res.render("error", { message: "" }) })
+router.get("/not-allowed", (req, res) => { res.render("notAllowed", { message: "" }) })
 
 
 export default router;

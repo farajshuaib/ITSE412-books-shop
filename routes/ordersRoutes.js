@@ -10,16 +10,17 @@ import {
 
 import upload from "../middlewares/multer";
 import { SalesStaticticsPermission } from "../middlewares/permissions";
+import { requireAuth } from "../middlewares/auth"
 
 const router = express.Router();
 
 // crued
-router.get("/orders", SalesStaticticsPermission, async(req, res) => {
+router.get("/orders", requireAuth, SalesStaticticsPermission, async(req, res) => {
     const orders = await getAllOrders(req, res);
     const orders_ammount_last_month = await getOrdersLastMonth(req, res);
     res.render("AllOrders", { orders, orders_ammount_last_month });
 });
-router.get("/my-orders", async(req, res) => {
+router.get("/my-orders", requireAuth, async(req, res) => {
     if (!res.locals.user) {
         return res.redirect("/");
     }

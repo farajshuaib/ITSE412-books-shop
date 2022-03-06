@@ -1,5 +1,7 @@
 import { prisma } from "../index";
 import bcrypt from "bcrypt";
+import { requireSuperAdmin } from "../middlewares/permissions";
+import moment from "moment";
 
 const allUser = async(req, res) => {
     try {
@@ -40,6 +42,7 @@ const getUserById = async(user_id) => {
 };
 
 const CreateUser = async(req, res) => {
+    await requireSuperAdmin(req, res);
     const { name, email, password, rule } = req.body;
 
     let hashed_password = await bcrypt.hash(password, 12);
@@ -50,6 +53,7 @@ const CreateUser = async(req, res) => {
                 email: email,
                 password: hashed_password,
                 rule: +rule,
+                created_at: moment().format("YYYY-MM-DD"),
             },
         });
         res.redirect("/success");
@@ -59,7 +63,7 @@ const CreateUser = async(req, res) => {
 };
 
 const deleteUser = async(req, res) => {
-    console.log("req.params.id", req.params.id)
+    await requireSuperAdmin(req, res);
     const user = await prisma.users.findUnique({
         where: { id: +req.params.id },
     });
@@ -80,6 +84,7 @@ const deleteUser = async(req, res) => {
 };
 
 const UpdateUser = async(req, res) => {
+    await requireSuperAdmin(req, res);
     try {
         const { name, email, password, rule } = req.body;
 

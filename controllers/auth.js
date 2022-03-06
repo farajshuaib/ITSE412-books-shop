@@ -24,6 +24,7 @@ export const signup_post = async(req, res) => {
                 email: email,
                 password: hashed_password,
                 rule: 3,
+                created_at: moment().format("YYYY-MM-DD"),
             },
         });
         const token = createToken(user.id);
